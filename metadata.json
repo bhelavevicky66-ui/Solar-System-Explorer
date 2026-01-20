@@ -1,0 +1,7 @@
+{
+  "name": "StellarVoyage: Solar System Explorer",
+  "description": "An interactive 3D-like solar system model with detailed planet information, an educational quiz, and an administrative dashboard. Built with React, Tailwind CSS, and powered by Gemini AI for dynamic space facts.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
