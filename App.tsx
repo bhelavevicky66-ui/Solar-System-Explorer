@@ -39,8 +39,8 @@ const Navbar: React.FC = () => {
 
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map(link => (
-            <Link 
-              key={link.path} 
+            <Link
+              key={link.path}
               to={link.path}
               className={`text-sm font-semibold tracking-wide transition-colors ${location.pathname === link.path ? 'text-indigo-400' : 'text-slate-300 hover:text-white'}`}
             >
@@ -71,7 +71,9 @@ const App: React.FC = () => {
   const [selectedPlanet, setSelectedPlanet] = useState<Planet | null>(null);
   const [isOrbiting, setIsOrbiting] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+
   const [isLoading, setIsLoading] = useState(true);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   useEffect(() => {
     // Simulate initial loading for "Space Immersion"
@@ -117,16 +119,16 @@ const App: React.FC = () => {
     <Router>
       <div className="min-h-screen relative flex flex-col">
         <StarsBackground />
-        <Navbar />
+        {!isFullScreen && <Navbar />}
 
         <main className="flex-grow pt-28 pb-12 px-6">
           <Routes>
             {/* Solar System View */}
             <Route path="/" element={
               <div className="max-w-7xl mx-auto h-full flex flex-col items-center">
-                <div className="flex flex-col md:flex-row items-center gap-6 w-full mb-12">
+                <div className={`flex flex-col md:flex-row items-center gap-6 w-full mb-12 ${isFullScreen ? 'hidden' : ''}`}>
                   <div className="flex-1 relative">
-                    <input 
+                    <input
                       type="text"
                       placeholder="Search for a planet..."
                       value={searchQuery}
@@ -135,36 +137,55 @@ const App: React.FC = () => {
                     />
                     <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                   </div>
-                  <button 
-                    onClick={() => setIsOrbiting(!isOrbiting)}
-                    className={`px-8 py-3 rounded-full font-bold transition-all flex items-center gap-2 border ${isOrbiting ? 'bg-red-500/10 border-red-500 text-red-500' : 'bg-green-500/10 border-green-500 text-green-500'}`}
-                  >
-                    {isOrbiting ? (
-                      <>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-                        Stop Orbit
-                      </>
-                    ) : (
-                      <>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                        Start Orbit
-                      </>
-                    )}
-                  </button>
+                  <div className="flex gap-4">
+                    <button
+                      onClick={() => setIsFullScreen(true)}
+                      className="px-6 py-3 rounded-full font-bold transition-all flex items-center gap-2 border bg-indigo-500/10 border-indigo-500 text-indigo-400 hover:bg-indigo-500/20"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                      View Full Screen
+                    </button>
+
+                    <button
+                      onClick={() => setIsOrbiting(!isOrbiting)}
+                      className={`px-8 py-3 rounded-full font-bold transition-all flex items-center gap-2 border ${isOrbiting ? 'bg-red-500/10 border-red-500 text-red-500' : 'bg-green-500/10 border-green-500 text-green-500'}`}
+                    >
+                      {isOrbiting ? (
+                        <>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                          Stop Orbit
+                        </>
+                      ) : (
+                        <>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                          Start Orbit
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
 
-                <div className="relative w-full h-[70vh]">
-                  <SolarSystem 
-                    planets={filteredPlanets} 
+                <div className={`${isFullScreen ? 'fixed inset-0 z-50 bg-black' : 'relative w-full h-[70vh]'}`}>
+                  {isFullScreen && (
+                    <button
+                      onClick={() => setIsFullScreen(false)}
+                      className="absolute top-8 right-8 z-50 px-6 py-2 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-full text-white font-bold hover:bg-slate-800 transition-all flex items-center gap-2"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
+                      Exit Full Screen
+                    </button>
+                  )}
+                  <SolarSystem
+                    planets={filteredPlanets}
                     onPlanetClick={setSelectedPlanet}
                     isOrbiting={isOrbiting}
                   />
                 </div>
 
                 {selectedPlanet && (
-                  <PlanetModal 
-                    planet={selectedPlanet} 
-                    onClose={() => setSelectedPlanet(null)} 
+                  <PlanetModal
+                    planet={selectedPlanet}
+                    onClose={() => setSelectedPlanet(null)}
                   />
                 )}
               </div>
@@ -179,8 +200,8 @@ const App: React.FC = () => {
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {planets.map(planet => (
-                    <div 
-                      key={planet.id} 
+                    <div
+                      key={planet.id}
                       className="group bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden hover:border-indigo-500 transition-all hover:shadow-2xl hover:shadow-indigo-500/10 cursor-pointer"
                       onClick={() => setSelectedPlanet(planet)}
                     >
@@ -213,9 +234,9 @@ const App: React.FC = () => {
             {/* Admin Route */}
             <Route path="/admin" element={
               <div className="max-w-5xl mx-auto py-12">
-                <AdminPanel 
-                  planets={planets} 
-                  scores={scores} 
+                <AdminPanel
+                  planets={planets}
+                  scores={scores}
                   onUpdatePlanet={handleUpdatePlanet}
                   onDeletePlanet={handleDeletePlanet}
                 />
@@ -224,7 +245,7 @@ const App: React.FC = () => {
           </Routes>
         </main>
 
-        <footer className="py-8 border-t border-slate-800 text-center">
+        <footer className={`py-8 border-t border-slate-800 text-center ${isFullScreen ? 'hidden' : ''}`}>
           <p className="text-slate-500 text-sm">
             &copy; 2024 StellarVoyage. Powered by Gemini AI. Explore responsibly.
           </p>
