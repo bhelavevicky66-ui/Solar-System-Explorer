@@ -136,6 +136,28 @@ const App: React.FC = () => {
                       className="w-full bg-slate-900/50 border border-slate-700 rounded-full px-12 py-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all backdrop-blur-sm"
                     />
                     <svg className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+
+                    {/* Search Dropdown */}
+                    {searchQuery && filteredPlanets.length > 0 && (
+                      <div className="absolute top-full left-0 right-0 mt-2 bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden shadow-xl z-50">
+                        {filteredPlanets.map(planet => (
+                          <div
+                            key={planet.id}
+                            className="flex items-center gap-3 p-3 hover:bg-slate-800 cursor-pointer transition-colors border-b border-slate-800 last:border-0"
+                            onClick={() => {
+                              setSelectedPlanet(planet);
+                              setSearchQuery('');
+                            }}
+                          >
+                            <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${planet.color}`}></div>
+                            <div>
+                              <div className="text-white font-bold text-sm">{planet.name}</div>
+                              <div className="text-slate-400 text-xs">{planet.distance}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div className="flex gap-4">
                     <button
