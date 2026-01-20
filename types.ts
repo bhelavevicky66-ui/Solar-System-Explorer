@@ -10,6 +10,9 @@ export interface Planet {
   orbitSpeed: number; // in seconds
   orbitSize: number; // in px or %
   diameter: number; // relative size for display
+  gravity: string; // e.g. "3.7 m/s²"
+  moons: number;
+  rotationTime: string; // e.g. "24.6 hours"
 }
 
 export interface QuizQuestion {

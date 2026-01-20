@@ -12,7 +12,10 @@ export const INITIAL_PLANETS: Planet[] = [
     color: 'from-gray-400 to-gray-600',
     orbitSpeed: 8,
     orbitSize: 100,
-    diameter: 12
+    diameter: 12,
+    gravity: "3.7 m/s²",
+    moons: 0,
+    rotationTime: "59 days"
   },
   {
     id: '2',
@@ -24,7 +27,10 @@ export const INITIAL_PLANETS: Planet[] = [
     color: 'from-orange-300 to-yellow-600',
     orbitSpeed: 12,
     orbitSize: 140,
-    diameter: 20
+    diameter: 20,
+    gravity: "8.87 m/s²",
+    moons: 0,
+    rotationTime: "243 days"
   },
   {
     id: '3',
@@ -36,7 +42,10 @@ export const INITIAL_PLANETS: Planet[] = [
     color: 'from-blue-400 to-green-500',
     orbitSpeed: 20,
     orbitSize: 190,
-    diameter: 22
+    diameter: 22,
+    gravity: "9.8 m/s²",
+    moons: 1,
+    rotationTime: "24 hours"
   },
   {
     id: '4',
@@ -48,7 +57,10 @@ export const INITIAL_PLANETS: Planet[] = [
     color: 'from-red-500 to-red-800',
     orbitSpeed: 30,
     orbitSize: 240,
-    diameter: 18
+    diameter: 18,
+    gravity: "3.71 m/s²",
+    moons: 2,
+    rotationTime: "24.6 hours"
   },
   {
     id: '5',
@@ -60,7 +72,10 @@ export const INITIAL_PLANETS: Planet[] = [
     color: 'from-orange-200 to-orange-400',
     orbitSpeed: 50,
     orbitSize: 310,
-    diameter: 45
+    diameter: 45,
+    gravity: "24.79 m/s²",
+    moons: 95,
+    rotationTime: "9.9 hours"
   },
   {
     id: '6',
@@ -72,7 +87,10 @@ export const INITIAL_PLANETS: Planet[] = [
     color: 'from-yellow-200 to-yellow-500',
     orbitSpeed: 70,
     orbitSize: 390,
-    diameter: 38
+    diameter: 38,
+    gravity: "10.44 m/s²",
+    moons: 146,
+    rotationTime: "10.7 hours"
   },
   {
     id: '7',
@@ -84,7 +102,10 @@ export const INITIAL_PLANETS: Planet[] = [
     color: 'from-cyan-300 to-cyan-500',
     orbitSpeed: 100,
     orbitSize: 460,
-    diameter: 30
+    diameter: 30,
+    gravity: "8.69 m/s²",
+    moons: 27,
+    rotationTime: "17.2 hours"
   },
   {
     id: '8',
@@ -96,7 +117,10 @@ export const INITIAL_PLANETS: Planet[] = [
     color: 'from-blue-600 to-indigo-800',
     orbitSpeed: 140,
     orbitSize: 520,
-    diameter: 28
+    diameter: 28,
+    gravity: "11.15 m/s²",
+    moons: 14,
+    rotationTime: "16.1 hours"
   }
 ];
 
